@@ -81,7 +81,8 @@ function buildExtendedAPDU(CLA, INS, P1, P2, commandData, responseLength) { //al
 
 let apdus = {
   GET_CHALLENGE: (length) => {
-    return buildExtendedAPDU(0x00,0x84,0x00,0x00,0,1);
+    let apdu = new Uint8Array([0x00,0xCA,0x01,0x81,0x08]);
+    return apdu;
   },
 };
 

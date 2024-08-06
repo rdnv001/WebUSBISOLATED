@@ -10,16 +10,31 @@ if version_info[0] < 3: raise Exception("Python3 required. Module http.server is
 ssl = False     #generate certificate:
                 #   openssl req -new -x509 -keyout server.pem -out server.pem -days 365 -nodes
                 #server.pem then also contains the private key, which should be protected
-import http.server #could be run standalone 'python3 -m http.server 8000'
+import http.server #could be run standalone 'PT'
 import socketserver
 import os
+
+try:
+    from http import server # Python 3
+except ImportError:
+    import SimpleHTTPServer as server # Python 2
+
+
+class MyHTTPRequestHandler(server.SimpleHTTPRequestHandler):
+    def end_headers(self):
+        self.send_my_headers()
+        super().end_headers()
+
+    def send_my_headers(self):
+        self.send_header("Content-Security-Policy", "script-src 'self'; object-src 'self'; script-src-elem 'self' 'unsafe-inline'")
+
 
 os.chdir(os.getcwd()+'/src')
 
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer): #handles requests in a separate thread. Solves deadlock if a script tries to import other scripts in parallel and waits for them.
     pass
 
-httpServer = ThreadedTCPServer(("",8000),http.server.SimpleHTTPRequestHandler)
+httpServer = ThreadedTCPServer(("0.0.0.0",8000), MyHTTPRequestHandler)
 if ssl:
     import ssl
     httpServer.socket = ssl.wrap_socket (httpServer.socket, certfile='../server.pem', server_side=True)
@@ -31,5 +46,13 @@ server_thread = threading.Thread(target=httpServer.serve_forever,daemon=True) #d
 server_thread.start()
 #block program, and provide shutdown command
 cmd = input("Press 'Enter' to quit.\n")
-httpServer.shutdown();
+httpServer.shutdown()
+httpServer.server_close()
 print("exiting...")
+
+
+
+
+
+
+
