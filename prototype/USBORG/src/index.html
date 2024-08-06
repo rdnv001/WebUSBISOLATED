@@ -1,0 +1,77 @@
+<html>
+<head>
+  <meta http-equiv="Content-Security-Policy" content= "script-src 'self'; object-src 'self'; script-src-elem 'self' 'unsafe-inline'">
+  <script type="module" src="main.js"></script>
+</head>
+<body>
+  <p><button id="requestDevice">connect reader</button></p>
+  <div id="row2" style="float:left;margin-left:10px;">
+    <h3>dice example</h3>
+    <svg id="diceSvg" style="border: 1px solid black;width:100px;height:100px;">
+      <g style="display:none;"><circle cx="50" cy="50" r="10" fill="black" /></circle></g> <!-- stroke="green" stroke-width="4" -->
+      <g style="display:none;" fill="black" >
+        <circle cx="25" cy="25" r="10"/></circle>
+        <circle cx="75" cy="75" r="10"/></circle>
+      </g>
+      <g style="display:none;" fill="black" >
+        <circle cx="25" cy="25" r="10"/></circle>
+        <circle cx="50" cy="50" r="10"/></circle>
+        <circle cx="75" cy="75" r="10"/></circle>
+      </g>
+      <g style="display:none;" fill="black" >
+        <circle cx="25" cy="25" r="10"/></circle>
+        <circle cx="75" cy="25" r="10"/></circle>
+        <circle cx="75" cy="75" r="10"/></circle>
+        <circle cx="25" cy="75" r="10"/></circle>
+      </g>
+      <g style="display:none;" fill="black" >
+        <circle cx="20" cy="20" r="10"/></circle>
+        <circle cx="80" cy="20" r="10"/></circle>
+        <circle cx="50" cy="50" r="10"/></circle>
+        <circle cx="80" cy="80" r="10"/></circle>
+        <circle cx="20" cy="80" r="10"/></circle>
+      </g>
+      <g style="display:none;" fill="black" >
+        <circle cx="25" cy="25" r="10"/></circle>
+        <circle cx="75" cy="25" r="10"/></circle>
+        <circle cx="50" cy="25" r="10"/></circle>
+        <circle cx="50" cy="75" r="10"/></circle>
+        <circle cx="75" cy="75" r="10"/></circle>
+        <circle cx="25" cy="75" r="10"/></circle>
+      </g>
+      <g style="display:none;" fill="black" >
+        <text x="30" y="50">Error</text>
+      </g>
+    </svg>
+    <p>Click square to roll dice</p>
+    </div>
+    <div style="float:left">
+      <h3>local use</h4>
+      <button id="getChallenge">Get challenge</button><br />
+      <button id="verify">Verify</button>
+      0x<input id="verifyPath" type="text" style="width:100px"></input>
+      <br /><button id="changePin">verified change pin</button>
+    </div>
+    <div style="float:left;margin-left:10px;">
+      <h3>forwarded use</h3>
+      <div>
+        <h4>remote WebSocket only</h4>
+      <button id="remoteAPDU">request remote CAPDU</button>
+      </div>
+      <div>
+        <h4>remote vicc, vpcd, app</h4>
+         <!--Remote WebSocket server accepting CAPDUs from virtual smartcard (vicc), which communicates (remote) with a virtual reader (vpcd), which is attached to the smartcard application.-->
+        <button id="viccvpcd">request remote CAPDU</button>
+      </div>
+      <div>
+      <h4>remote nPA PACE</h4>
+      CAN: <input id="can" type="text" style="width:100px"></input><button id="sendRemotePACE">send</button>
+      <!--<p id="canAnswer">&nbsp;</p>-->
+      </div>
+    </div>
+
+  <div style="clear:both"></div>
+  <p>Status: <span id="status"></span></p> <!-- rename to error -->
+  <p><textarea id="log" readonly rows="15" cols="80"></textarea></p>
+</body>
+</html>
