@@ -1,0 +1,36 @@
+{
+  "id": "/",
+  "short_name": "WebUSBAuth",
+  "name": "WebUSBAuth",
+  "version": "0.2.0",
+  "icons": [
+    {
+      "src": "/images/icons-vector.svg",
+      "sizes": "48x48 72x72 96x96 128x128 256x256 512x512 1024x1024",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icons-192.png",
+      "type": "image/png",
+      "sizes": "192x192",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/images/icons-512.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/",
+  "display": "standalone",
+  "scope": "/",
+  "content_security_policy": "script-src 'self'; object-src 'self'; script-src-elem 'self' 'unsafe-inline'",
+  "permissions_policy": {
+    "cross-origin-isolated": ["self"],
+    "direct-sockets": ["self"], 
+	"usb":["*"],
+	"usb-unrestricted":["*"]
+  }
+}
